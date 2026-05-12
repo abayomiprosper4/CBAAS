@@ -22,7 +22,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarGroup,
-  SidebarGroupLabel,
+  SidebarGroupContent,
 } from "@/components/ui/sidebar";
 
 export function AppSidebar() {
@@ -44,7 +44,7 @@ export function AppSidebar() {
       
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupContent>Application</SidebarGroupContent>
           <SidebarMenu>
             {navigation.map((item) => (
               <SidebarMenuItem key={item.name}>
