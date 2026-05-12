@@ -1,0 +1,321 @@
+import type { Course, Lecturer } from '@/types';
+
+export const sampleCourses: Course[] = [
+  {
+    id: 'course-1',
+    code: 'CSC 401',
+    title: 'Artificial Intelligence',
+    units: 3,
+    requiredHours: 3,
+    status: 'C',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Artificial Intelligence', 'Machine Learning', 'Programming'],
+  },
+  {
+    id: 'course-2',
+    code: 'CSC 402',
+    title: 'Software Engineering',
+    units: 3,
+    requiredHours: 3,
+    status: 'C',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Software Engineering', 'Programming'],
+  },
+  {
+    id: 'course-3',
+    code: 'CSC 403',
+    title: 'Database Systems',
+    units: 3,
+    requiredHours: 3,
+    status: 'C',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Database Systems', 'Software Engineering'],
+  },
+  {
+    id: 'course-4',
+    code: 'CSC 404',
+    title: 'Computer Networks',
+    units: 3,
+    requiredHours: 3,
+    status: 'R',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Computer Networks', 'Cybersecurity'],
+  },
+  {
+    id: 'course-5',
+    code: 'CSC 405',
+    title: 'Web Development',
+    units: 2,
+    requiredHours: 2,
+    status: 'E',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Web Development', 'Programming', 'Software Engineering'],
+  },
+  {
+    id: 'course-6',
+    code: 'CSC 406',
+    title: 'Data Structures and Algorithms',
+    units: 3,
+    requiredHours: 3,
+    status: 'C',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Algorithms', 'Programming'],
+  },
+  {
+    id: 'course-7',
+    code: 'CSC 407',
+    title: 'Operating Systems',
+    units: 3,
+    requiredHours: 3,
+    status: 'R',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Operating Systems', 'Computer Architecture'],
+  },
+  {
+    id: 'course-8',
+    code: 'CSC 408',
+    title: 'Cybersecurity Fundamentals',
+    units: 2,
+    requiredHours: 2,
+    status: 'E',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Cybersecurity', 'Computer Networks'],
+  },
+  {
+    id: 'course-9',
+    code: 'CSC 409',
+    title: 'Cloud Computing',
+    units: 2,
+    requiredHours: 2,
+    status: 'E',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Cloud Computing', 'Computer Networks'],
+  },
+  {
+    id: 'course-10',
+    code: 'CSC 410',
+    title: 'Mobile Application Development',
+    units: 2,
+    requiredHours: 2,
+    status: 'E',
+    department: 'CSC',
+    prerequisites: [],
+    specializationAreas: ['Mobile Development', 'Programming'],
+  },
+  {
+    id: 'course-11',
+    code: 'IT 401',
+    title: 'Information Systems Management',
+    units: 2,
+    requiredHours: 2,
+    status: 'R',
+    department: 'IT',
+    prerequisites: [],
+    specializationAreas: ['Software Engineering', 'Database Systems'],
+  },
+  {
+    id: 'course-12',
+    code: 'IT 402',
+    title: 'Data Science Fundamentals',
+    units: 3,
+    requiredHours: 3,
+    status: 'E',
+    department: 'IT',
+    prerequisites: [],
+    specializationAreas: ['Data Science', 'Machine Learning', 'Artificial Intelligence'],
+  },
+];
+
+export const sampleLecturers: Lecturer[] = [
+  {
+    id: 'lecturer-1',
+    fullName: 'Dr. John Smith',
+    email: 'john.smith@bells.edu.ng',
+    rank: 'Professor',
+    departments: ['CSC'],
+    specializations: ['Artificial Intelligence', 'Machine Learning', 'Data Science'],
+    expertiseRatings: {
+      'Artificial Intelligence': 95,
+      'Machine Learning': 90,
+      'Data Science': 85,
+      'Programming': 80,
+    },
+    preferenceRatings: {
+      'Artificial Intelligence': 90,
+      'Machine Learning': 85,
+      'Data Science': 70,
+      'Programming': 60,
+    },
+    availability: {
+      monday: true,
+      tuesday: true,
+      wednesday: true,
+      thursday: true,
+      friday: false,
+    },
+    minWorkload: 3,
+    maxWorkload: 12,
+    yearsExperience: 15,
+  },
+  {
+    id: 'lecturer-2',
+    fullName: 'Dr. Sarah Johnson',
+    email: 'sarah.johnson@bells.edu.ng',
+    rank: 'Associate Professor',
+    departments: ['CSC'],
+    specializations: ['Software Engineering', 'Database Systems', 'Web Development'],
+    expertiseRatings: {
+      'Software Engineering': 90,
+      'Database Systems': 85,
+      'Web Development': 80,
+      'Programming': 85,
+    },
+    preferenceRatings: {
+      'Software Engineering': 85,
+      'Database Systems': 80,
+      'Web Development': 75,
+      'Programming': 70,
+    },
+    availability: {
+      monday: true,
+      tuesday: true,
+      wednesday: false,
+      thursday: true,
+      friday: true,
+    },
+    minWorkload: 3,
+    maxWorkload: 12,
+    yearsExperience: 10,
+  },
+  {
+    id: 'lecturer-3',
+    fullName: 'Dr. Michael Brown',
+    email: 'michael.brown@bells.edu.ng',
+    rank: 'Senior Lecturer',
+    departments: ['CSC', 'IT'],
+    specializations: ['Computer Networks', 'Cybersecurity', 'Cloud Computing'],
+    expertiseRatings: {
+      'Computer Networks': 88,
+      'Cybersecurity': 85,
+      'Cloud Computing': 80,
+      'Operating Systems': 75,
+    },
+    preferenceRatings: {
+      'Computer Networks': 85,
+      'Cybersecurity': 80,
+      'Cloud Computing': 75,
+      'Operating Systems': 70,
+    },
+    availability: {
+      monday: true,
+      tuesday: false,
+      wednesday: true,
+      thursday: true,
+      friday: true,
+    },
+    minWorkload: 3,
+    maxWorkload: 12,
+    yearsExperience: 8,
+  },
+  {
+    id: 'lecturer-4',
+    fullName: 'Dr. Emily Davis',
+    email: 'emily.davis@bells.edu.ng',
+    rank: 'Lecturer I',
+    departments: ['CSC'],
+    specializations: ['Algorithms', 'Programming', 'Theory of Computation'],
+    expertiseRatings: {
+      'Algorithms': 85,
+      'Programming': 90,
+      'Theory of Computation': 80,
+      'Data Structures': 85,
+    },
+    preferenceRatings: {
+      'Algorithms': 80,
+      'Programming': 85,
+      'Theory of Computation': 75,
+      'Data Structures': 80,
+    },
+    availability: {
+      monday: true,
+      tuesday: true,
+      wednesday: true,
+      thursday: false,
+      friday: true,
+    },
+    minWorkload: 3,
+    maxWorkload: 12,
+    yearsExperience: 5,
+  },
+  {
+    id: 'lecturer-5',
+    fullName: 'Dr. Robert Wilson',
+    email: 'robert.wilson@bells.edu.ng',
+    rank: 'Lecturer II',
+    departments: ['IT'],
+    specializations: ['Mobile Development', 'Web Development', 'Software Engineering'],
+    expertiseRatings: {
+      'Mobile Development': 80,
+      'Web Development': 85,
+      'Software Engineering': 75,
+      'Programming': 80,
+    },
+    preferenceRatings: {
+      'Mobile Development': 85,
+      'Web Development': 80,
+      'Software Engineering': 75,
+      'Programming': 70,
+    },
+    availability: {
+      monday: false,
+      tuesday: true,
+      wednesday: true,
+      thursday: true,
+      friday: true,
+    },
+    minWorkload: 3,
+    maxWorkload: 12,
+    yearsExperience: 3,
+  },
+];
+
+export function initializeSampleData() {
+  // Only initialize if data doesn't exist
+  const existingCourses = localStorage.getItem('courses');
+  const existingLecturers = localStorage.getItem('lecturers');
+
+  if (!existingCourses) {
+    localStorage.setItem('courses', JSON.stringify(sampleCourses));
+    console.log('Sample courses initialized');
+  }
+
+  if (!existingLecturers) {
+    localStorage.setItem('lecturers', JSON.stringify(sampleLecturers));
+    console.log('Sample lecturers initialized');
+  }
+
+  // Initialize default settings if not exists
+  const existingSettings = localStorage.getItem('allocationSettings');
+  if (!existingSettings) {
+    const defaultSettings = {
+      maxLecturerWorkload: 15,
+      minLecturerWorkload: 3,
+      expertiseWeight: 60,
+      preferenceWeight: 40,
+      allowOverloading: false,
+      enforceAvailability: true,
+      maxLecturersPerCourse: 3,
+      max3UnitCoursesPerLecturer: 1,
+    };
+    localStorage.setItem('allocationSettings', JSON.stringify(defaultSettings));
+  }
+}
