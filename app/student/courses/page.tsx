@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import { BookOpen, Search, Mail, User } from 'lucide-react';
 import { Input } from '@/components/ui/input';

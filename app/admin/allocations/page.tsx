@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { Play, Download, Edit2, CheckCircle, Trash2, Eye, History, BookOpen, Users, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
