@@ -114,7 +114,7 @@ export interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string, role: string) => Promise<boolean>;
   register: (userData: RegisterData) => Promise<boolean>;
-  logout: () => void;
+  logout: () => Promise<void>;
   updateUser: (userData: Partial<User>) => void;
 }
 

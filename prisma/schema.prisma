@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum UserRole {
+  admin
+  lecturer
+  main_admin
+  student
+}
+
+enum UserStatus {
+  pending
+  approved
+  rejected
+}
+
+enum CourseStatus {
+  C
+  R
+  E
+}
+
+model User {
+  id           String           @id @db.VarChar(64)
+  email        String           @unique @db.VarChar(191)
+  passwordHash String           @map("password_hash") @db.VarChar(255)
+  fullName     String           @map("full_name") @db.VarChar(191)
+  role         UserRole
+  status       UserStatus       @default(pending)
+  rank         String?          @db.VarChar(64)
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
+  lecturer     LecturerProfile?
+  student      StudentProfile?
+  sessions     AuthSession[]
+
+  @@map("users")
+}
+
+model AuthSession {
+  id        String   @id @default(uuid()) @db.VarChar(36)
+  userId    String   @map("user_id") @db.VarChar(64)
+  tokenHash String   @unique @map("token_hash") @db.Char(64)
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("auth_sessions")
+}
+
+model LecturerProfile {
+  userId          String                   @id @map("user_id") @db.VarChar(64)
+  departments     LecturerDepartment[]
+  specializations LecturerSpecialization[]
+  minWorkload     Int                      @default(3) @map("min_workload")
+  maxWorkload     Int                      @default(12) @map("max_workload")
+  yearsExperience Int?                     @map("years_experience")
+  availability    LecturerAvailability?
+  user            User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignments     Assignment[]
+
+  @@map("lecturers")
+}
+
+model LecturerDepartment {
+  lecturerId String          @map("lecturer_id") @db.VarChar(64)
+  department String          @db.VarChar(128)
+  lecturer   LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@id([lecturerId, department])
+  @@map("lecturer_departments")
+}
+
+model LecturerSpecialization {
+  lecturerId       String          @map("lecturer_id") @db.VarChar(64)
+  specialization   String          @db.VarChar(128)
+  expertiseRating  Int?            @map("expertise_rating")
+  preferenceRating Int?            @map("preference_rating")
+  lecturer         LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@id([lecturerId, specialization])
+  @@map("lecturer_specializations")
+}
+
+model LecturerAvailability {
+  lecturerId String          @id @map("lecturer_id") @db.VarChar(64)
+  monday     Boolean         @default(true)
+  tuesday    Boolean         @default(true)
+  wednesday  Boolean         @default(true)
+  thursday   Boolean         @default(true)
+  friday     Boolean         @default(true)
+  lecturer   LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@map("lecturer_availability")
+}
+
+model StudentProfile {
+  userId       String          @id @map("user_id") @db.VarChar(64)
+  matricNumber String?         @unique @map("matric_number") @db.VarChar(64)
+  department   String?         @db.VarChar(128)
+  level        Int?
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courses      StudentCourse[]
+
+  @@map("students")
+}
+
+model StudentCourse {
+  studentId String         @map("student_id") @db.VarChar(64)
+  courseId  String         @map("course_id") @db.VarChar(64)
+  student   StudentProfile @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+  course    Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@id([studentId, courseId])
+  @@map("student_courses")
+}
+
+model Course {
+  id                   String                 @id @db.VarChar(64)
+  code                 String                 @unique @db.VarChar(32)
+  title                String                 @db.VarChar(191)
+  units                Int
+  requiredHours        Int                    @map("required_hours")
+  status               CourseStatus
+  department           String                 @db.VarChar(128)
+  prerequisites        CoursePrerequisite[]
+  specializationAreas  CourseSpecialization[]
+  studentRegistrations StudentCourse[]
+  assignments          Assignment[]
+
+  @@map("courses")
+}
+
+model CoursePrerequisite {
+  courseId         String @map("course_id") @db.VarChar(64)
+  prerequisiteCode String @map("prerequisite_code") @db.VarChar(32)
+  course           Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@id([courseId, prerequisiteCode])
+  @@map("course_prerequisites")
+}
+
+model CourseSpecialization {
+  courseId       String @map("course_id") @db.VarChar(64)
+  specialization String @db.VarChar(128)
+  course         Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@id([courseId, specialization])
+  @@map("course_specializations")
+}
+
+model AllocationSettings {
+  id                         String   @id @default("global") @db.VarChar(32)
+  maxLecturerWorkload        Int      @default(15) @map("max_lecturer_workload")
+  minLecturerWorkload        Int      @default(3) @map("min_lecturer_workload")
+  expertiseWeight            Int      @default(60) @map("expertise_weight")
+  preferenceWeight           Int      @default(40) @map("preference_weight")
+  allowOverloading           Boolean  @default(false) @map("allow_overloading")
+  enforceAvailability        Boolean  @default(true) @map("enforce_availability")
+  maxLecturersPerCourse      Int      @default(3) @map("max_lecturers_per_course")
+  max3UnitCoursesPerLecturer Int      @default(1) @map("max_3unit_courses_per_lecturer")
+  updatedAt                  DateTime @updatedAt @map("updated_at")
+
+  @@map("allocation_settings")
+}
+
+model Allocation {
+  id           String       @id @db.VarChar(64)
+  date         DateTime
+  isModified   Boolean      @default(false) @map("is_modified")
+  modifiedDate DateTime?    @map("modified_date")
+  assignments  Assignment[]
+
+  @@map("allocations")
+}
+
+model Assignment {
+  allocationId String          @map("allocation_id") @db.VarChar(64)
+  lecturerId   String          @map("lecturer_id") @db.VarChar(64)
+  courseId     String          @map("course_id") @db.VarChar(64)
+  hours        Int
+  allocation   Allocation      @relation(fields: [allocationId], references: [id], onDelete: Cascade)
+  lecturer     LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Restrict)
+  course       Course          @relation(fields: [courseId], references: [id], onDelete: Restrict)
+
+  @@id([allocationId, lecturerId, courseId])
+  @@index([lecturerId])
+  @@index([courseId])
+  @@map("assignments")
+}

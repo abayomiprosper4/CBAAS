@@ -20,6 +20,28 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Database Setup
+
+The app's Prisma schema targets MySQL. Create the database once in MySQL:
+
+```sql
+CREATE DATABASE course_allocation_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Copy `.env.example` to `.env`, set `DATABASE_URL` to your MySQL username and URL-encoded password, then apply the initial migration and generate Prisma Client:
+
+```bash
+npm run db:migrate
+```
+
+Set `BOOTSTRAP_ADMIN_EMAIL`, `BOOTSTRAP_ADMIN_NAME`, and `BOOTSTRAP_ADMIN_PASSWORD` in `.env`, then create the first administrator once:
+
+```bash
+npm run db:create-admin
+```
+
+Use `npm run db:studio` to inspect the local database. Never commit `.env` or put database credentials in client-side code.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

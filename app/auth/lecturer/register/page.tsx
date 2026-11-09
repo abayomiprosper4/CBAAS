@@ -135,6 +135,7 @@ export default function LecturerRegisterPage() {
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
+                    minLength={12}
                     value={formData.password}
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
@@ -150,6 +151,7 @@ export default function LecturerRegisterPage() {
                   id="confirmPassword"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
+                  minLength={12}
                   value={formData.confirmPassword}
                   onChange={(e) =>
                     setFormData({

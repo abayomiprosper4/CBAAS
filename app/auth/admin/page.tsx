@@ -33,7 +33,11 @@ export default function AdminLoginPage() { // Changed name for clarity
         toast.error('Invalid admin credentials.');
       }
     } catch (error) {
-      toast.error('An error occurred during login.');
+      toast.error(
+        error instanceof Error && error.message === 'PENDING_APPROVAL'
+          ? 'Your account is pending approval.'
+          : 'Invalid admin credentials.',
+      );
     } finally {
       setIsLoading(false);
     }

@@ -163,6 +163,7 @@ export default function StudentRegisterPage() {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="••••••••"
+                    minLength={12}
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     className="pl-10"
@@ -176,6 +177,7 @@ export default function StudentRegisterPage() {
                   id="confirmPassword"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••"
+                  minLength={12}
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   required
